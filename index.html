@@ -2,41 +2,75 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Garfias VS Zombies</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;overflow:hidden;display:flex;justify-content:center;align-items:center;height:100vh;font-family:'Press Start 2P',monospace}
+body{background:#000;overflow:hidden;display:flex;justify-content:center;align-items:center;height:100vh;height:100dvh;font-family:'Press Start 2P',monospace;touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges}
 #ov{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;pointer-events:none;z-index:10}
 #ov.on{pointer-events:all}
-.bx{background:rgba(8,2,2,.96);border:3px solid #7f1d1d;border-radius:6px;padding:30px 44px;text-align:center;display:none;backdrop-filter:blur(4px)}
+.bx{background:rgba(8,2,2,.96);border:3px solid #7f1d1d;border-radius:6px;padding:24px 20px;text-align:center;display:none;backdrop-filter:blur(4px);max-width:92vw}
 .bx.sh{display:block}
-.tt{color:#dc2626;font-size:18px;margin-bottom:12px;text-shadow:0 0 24px rgba(220,38,38,.5),0 2px 0 #450a0a;letter-spacing:1px}
+.tt{color:#dc2626;font-size:16px;margin-bottom:12px;text-shadow:0 0 24px rgba(220,38,38,.5),0 2px 0 #450a0a;letter-spacing:1px}
 .tt.grn{color:#16a34a;text-shadow:0 0 24px rgba(22,163,74,.5),0 2px 0 #052e16;}
-.sb{color:#78716c;font-size:7px;margin-bottom:22px;line-height:2.6}
-.bt{background:linear-gradient(180deg,#dc2626,#7f1d1d);color:#fef2f2;border:none;padding:11px 30px;font-family:'Press Start 2P',monospace;font-size:10px;cursor:pointer;border-radius:4px;transition:all .15s;margin:5px;text-shadow:0 1px 0 rgba(255,255,255,.15)}
+.sb{color:#78716c;font-size:6px;margin-bottom:18px;line-height:2.4}
+.bt{background:linear-gradient(180deg,#dc2626,#7f1d1d);color:#fef2f2;border:none;padding:12px 28px;font-family:'Press Start 2P',monospace;font-size:10px;cursor:pointer;border-radius:4px;transition:all .15s;margin:5px;text-shadow:0 1px 0 rgba(255,255,255,.15);display:inline-block}
 .bt:hover{transform:scale(1.06);box-shadow:0 0 20px rgba(220,38,38,.5)}
+.bt:active{transform:scale(.96)}
 .bt.grn{background:linear-gradient(180deg,#16a34a,#052e16);text-shadow:0 1px 0 rgba(255,255,255,.15)}
 .bt.grn:hover{box-shadow:0 0 20px rgba(22,163,74,.5)}
 .bt.s2{background:linear-gradient(180deg,#3f3f46,#18181b);color:#a1a1aa;text-shadow:none}
 .bt.s2:hover{box-shadow:0 0 12px rgba(63,63,70,.4)}
-.sc{color:#fca5a5;font-size:12px;margin-bottom:10px}
-.sc.sm{font-size:7px;color:#78716c}
-.ct{color:#57534e;font-size:6px;margin-top:18px;line-height:2.8}
-.ky{color:#ef4444;border:1px solid #7f1d1d;background:rgba(220,38,38,.08);padding:1px 5px;border-radius:3px}
+.sc{color:#fca5a5;font-size:11px;margin-bottom:10px}
+.sc.sm{font-size:6px;color:#78716c}
+.ct{color:#57534e;font-size:5px;margin-top:14px;line-height:2.6}
+.ky{color:#ef4444;border:1px solid #7f1d1d;background:rgba(220,38,38,.08);padding:1px 4px;border-radius:3px}
 #ld{color:#dc2626;font-size:9px;animation:pu 1.2s ease-in-out infinite}
 @keyframes pu{0%,100%{opacity:.2}50%{opacity:1}}
-.vs-txt{color:#fbbf24;font-size:32px;margin:8px 0;text-shadow:0 0 40px rgba(251,191,36,.7),0 0 80px rgba(251,191,36,.3),0 2px 0 #92400e;letter-spacing:6px;animation:vsPulse 2s ease-in-out infinite}
+.vs-txt{color:#fbbf24;font-size:28px;margin:8px 0;text-shadow:0 0 40px rgba(251,191,36,.7),0 0 80px rgba(251,191,36,.3),0 2px 0 #92400e;letter-spacing:6px;animation:vsPulse 2s ease-in-out infinite}
 @keyframes vsPulse{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.08);filter:brightness(1.3)}}
-.title-garfias{color:#dc2626;font-size:22px;text-shadow:0 0 30px rgba(220,38,38,.6),0 0 60px rgba(220,38,38,.3),0 3px 0 #450a0a;letter-spacing:3px}
-.title-zombies{color:#22c55e;font-size:22px;text-shadow:0 0 30px rgba(34,197,94,.6),0 0 60px rgba(34,197,94,.3),0 3px 0 #052e16;letter-spacing:3px}
-.menu-sub{color:#78716c;font-size:6px;margin:4px 0 18px;line-height:2.2}
+.title-garfias{color:#dc2626;font-size:20px;text-shadow:0 0 30px rgba(220,38,38,.6),0 0 60px rgba(220,38,38,.3),0 3px 0 #450a0a;letter-spacing:3px}
+.title-zombies{color:#22c55e;font-size:20px;text-shadow:0 0 30px rgba(34,197,94,.6),0 0 60px rgba(34,197,94,.3),0 3px 0 #052e16;letter-spacing:3px}
+.menu-sub{color:#78716c;font-size:5px;margin:4px 0 16px;line-height:2.2}
+
+/* ===== CONTROLES TÁCTILES ===== */
+#touch-ui{position:fixed;bottom:0;left:0;width:100%;height:100%;pointer-events:none;z-index:5;display:none}
+#touch-ui.show{display:block}
+.tc{position:absolute;pointer-events:all;border:none;outline:none;font-family:'Press Start 2P',monospace;border-radius:12px;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+.tc:active,.tc.pressed{filter:brightness(1.4)}
+#btn-l{left:max(12px,3vw);bottom:max(12px,3vh);width:70px;height:70px;background:rgba(220,38,38,.18);border:2px solid rgba(220,38,38,.35);color:rgba(252,165,165,.7);font-size:22px}
+#btn-l:active,#btn-l.pressed{background:rgba(220,38,38,.4);border-color:rgba(220,38,38,.7)}
+#btn-r{left:calc(max(12px,3vw) + 84px);bottom:max(12px,3vh);width:70px;height:70px;background:rgba(220,38,38,.18);border:2px solid rgba(220,38,38,.35);color:rgba(252,165,165,.7);font-size:22px}
+#btn-r:active,#btn-r.pressed{background:rgba(220,38,38,.4);border-color:rgba(220,38,38,.7)}
+#btn-j{right:max(12px,3vw);bottom:calc(max(12px,3vh) + 84px);width:70px;height:70px;background:rgba(22,163,74,.18);border:2px solid rgba(22,163,74,.35);color:rgba(134,239,172,.7);font-size:20px}
+#btn-j:active,#btn-j.pressed{background:rgba(22,163,74,.4);border-color:rgba(22,163,74,.7)}
+#btn-s{right:max(12px,3vw);bottom:max(12px,3vh);width:70px;height:70px;background:rgba(251,191,36,.18);border:2px solid rgba(251,191,36,.35);color:rgba(253,230,138,.7);font-size:16px}
+#btn-s:active,#btn-s.pressed{background:rgba(251,191,36,.4);border-color:rgba(251,191,36,.7)}
+@media(max-width:480px){
+    #btn-l,#btn-r,#btn-j,#btn-s{width:62px;height:62px;font-size:18px}
+    #btn-r{left:calc(max(10px,2.5vw) + 74px)}
+    #btn-j{bottom:calc(max(10px,2.5vh) + 74px)}
+    .bx{padding:18px 14px}
+    .tt{font-size:14px}.vs-txt{font-size:22px}.title-garfias,.title-zombies{font-size:16px}
+}
+@media(min-width:769px){
+    #touch-ui{display:none!important}
+}
 </style>
 </head>
 <body>
 <canvas id="cv"></canvas>
+
+<!-- Controles táctiles para móvil -->
+<div id="touch-ui">
+    <button class="tc" id="btn-l">◀</button>
+    <button class="tc" id="btn-r">▶</button>
+    <button class="tc" id="btn-j">▲</button>
+    <button class="tc" id="btn-s">FIRE</button>
+</div>
+
 <div id="ov" class="on">
 <div id="ld">CARGANDO...</div>
 <div id="mn" class="bx">
@@ -51,7 +85,8 @@ canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges}
 <span class="ky">J</span> Disparar &nbsp;
 Sube a plataformas para esquivar<br>
 <span style="color:#a3e635;">Los zombies verdes brillantes SALTAN</span><br>
-<span style="color:#eab308;">Orbes = Power-ups temporales</span>
+<span style="color:#eab308;">Orbes = Power-ups temporales</span><br>
+<span style="color:#78716c;">En móvil usa los botones en pantalla</span>
 </div>
 </div>
 <div id="go" class="bx">
@@ -83,62 +118,74 @@ const PW=FW*PS,PH=FH*PS,ZW=FW*ZS,ZH=FH*ZS,IW=FW*IS,IH=FH*IS,HW=FW*HS,HH=FH*HS;
 const GRAV=0.38,JPOW=-13.2,PSPD=3.6;
 const ATK_DUR=22,INV_T=48;
 let sc=1,ox=0,oy=0;
-function resize(){C.width=innerWidth;C.height=innerHeight;sc=Math.min(C.width/VW,C.height/VH);ox=(C.width-VW*sc)/2;oy=(C.height-VH*sc)/2;}
+function resize(){
+    C.width=innerWidth;C.height=innerHeight;
+    sc=Math.min(C.width/VW,C.height/VH);
+    ox=(C.width-VW*sc)/2;oy=(C.height-VH*sc)/2;
+}
 resize();addEventListener('resize',resize);
+
+/* =============================================
+   DETECCIÓN DE DISPOSITIVO TÁCTIL
+============================================= */
+const isTouchDevice=('ontouchstart' in window)||(navigator.maxTouchPoints>0);
+if(isTouchDevice){
+    document.getElementById('touch-ui').classList.add('show');
+    document.body.style.cursor='default';
+}
 
 /* =============================================
    PORTADA E INTRO
 ============================================= */
-const COVER_URL='https://z-cdn-media.chatglm.cn/files/0d8c0e36-ff1c-4dba-bfe8-7021e52377ec.png?auth_key=1876914883-df6ffcf773f14b3e8e6ecccd39855e41-0-173382d33803191014ba35568457a6f9';
+const COVER_URL='https://z-cdn-media.chatglm.cn/files/33a010ff-f436-46fc-ad4f-5ffcdcbea993.png?auth_key=1876950060-57538de19eeb4b4ca99d391ed2375c8b-0-8350971319a9bbb1804918345d1d8ca1';
 let coverImg=null;
-let introState='cover'; /* cover -> intro -> menu */
+let introState='cover';
 let coverTimer=0;
-let introLines=[];
 let introLineIdx=0;
 let introCharIdx=0;
 let introCharTimer=0;
 let introLineTimer=0;
-let introWaitSkip=false;
 let introFinished=false;
 let introFadeAlpha=0;
-let introPhase='typing'; /* typing -> waiting -> fadeout */
+let introPhase='typing';
 
 const INTRO_TEXT=[
-    {text:'EL AÑO ES 2026...',delay:60,color:'#d4d4d8'},
-    {text:'UNA HAMBURGUESA EN MAL ESTADO CONVIRTIO A TODOS EN ZOMBIES',delay:60,color:'#d4d4d8'},
-    {text:'ELLOS YA HAN INVADIDO LA CIUDAD.',delay:60,color:'#d4d4d8'},
+    {text:'ERES JOSE...',delay:70,color:'#d4d4d8'},
+    {text:'UN TIPO NORMAL CON UNA GARFIA,',delay:65,color:'#d4d4d8'},
+    {text:'GAFAS DE SOL Y CERO SENTIDO',delay:65,color:'#d4d4d8'},
+    {text:'DEL COMUN.',delay:80,color:'#d4d4d8'},
     {text:'',delay:30,color:'#d4d4d8'},
-    {text:'LOS MUERTOS CAMINAN...',delay:70,color:'#22c55e'},
-    {text:'HAMBRIENTOS... INFECTADOS...',delay:70,color:'#22c55e'},
-    {text:'IMPOSIBLES DE DETENER.',delay:70,color:'#22c55e'},
+    {text:'UN DÍA TE DIJERON:',delay:70,color:'#78716c'},
+    {text:'"JOSE, HAY ZOMBIES"',delay:75,color:'#78716c'},
+    {text:'Y DIJISTE: "MEH".',delay:90,color:'#fbbf24'},
     {text:'',delay:30,color:'#d4d4d8'},
-    {text:'SOLO UN HOMBRE SE ATREVE',delay:60,color:'#dc2626'},
-    {text:'A ENFRENTAR A LA HORDA DE ZOMBIES.',delay:60,color:'#dc2626'},
+    {text:'LUEGO TE DIJERON:',delay:70,color:'#78716c'},
+    {text:'"SE LLEVARON TU CERVEZA"',delay:75,color:'#78716c'},
+    {text:'Y DIJISTE: "A LLORAR"',delay:60,color:'#dc2626'},
+    {text:'"AL INFIERNO".',delay:80,color:'#dc2626'},
     {text:'',delay:30,color:'#d4d4d8'},
-    {text:'GARFIAS, QUE CASUALMENTE NO SE INFECTO',delay:60,color:'#fbbf24'},
-    {text:'INTENTARA DERROTAR A ESTOS ZOMBIES QUE QUIEREN SUS CERVEZAS.',delay:80,color:'#fbbf24'},
-    {text:'',delay:40,color:'#d4d4d8'},
-    {text:'ESTA ES SU NOCHE.',delay:90,color:'#fca5a5'},
-    {text:'ESTA ES... SU GUERRA.',delay:100,color:'#fca5a5'},
+    {text:'AHORA ESTÁS AQUÍ...',delay:70,color:'#22c55e'},
+    {text:'CON UNA GARFIA Y 4 BALAS,',delay:70,color:'#22c55e'},
+    {text:'CONTRA UN EJÉRCITO DE MUERTOS.',delay:75,color:'#22c55e'},
+    {text:'',delay:30,color:'#d4d4d8'},
+    {text:'TU PLAN DE BATALLA:',delay:70,color:'#fbbf24'},
+    {text:'1. PEGARLES',delay:50,color:'#fbbf24'},
+    {text:'2. BEBER CERVEZA',delay:50,color:'#fbbf24'},
+    {text:'3. REPETIR HASTA GANAR',delay:70,color:'#fbbf24'},
+    {text:'',delay:30,color:'#d4d4d8'},
+    {text:'NINGÚN ESTRATEGA CONTRATÓ',delay:65,color:'#d4d4d8'},
+    {text:'A JOSE. Y SE NOTA.',delay:100,color:'#fca5a5'},
 ];
 
 function initIntro(){
-    introState='cover';
-    coverTimer=0;
-    introLineIdx=0;
-    introCharIdx=0;
-    introCharTimer=0;
-    introLineTimer=0;
-    introWaitSkip=false;
-    introFinished=false;
-    introFadeAlpha=0;
-    introPhase='typing';
+    introState='cover';coverTimer=0;introLineIdx=0;introCharIdx=0;
+    introCharTimer=0;introLineTimer=0;introFinished=false;
+    introFadeAlpha=0;introPhase='typing';
 }
 
 function loadCoverImg(){
     return new Promise((res)=>{
-        const img=new Image();
-        img.crossOrigin='anonymous';
+        const img=new Image();img.crossOrigin='anonymous';
         img.onload=()=>{coverImg=img;res();};
         img.onerror=()=>{coverImg=null;res();};
         img.src=COVER_URL;
@@ -148,297 +195,123 @@ function loadCoverImg(){
 function updateIntro(){
     if(introState==='cover'){
         coverTimer++;
-        /* Esperar click o tecla o timer */
-        if(coverTimer>120){
-            introState='intro';
-            introPhase='typing';
-            introLineIdx=0;
-            introCharIdx=0;
-            introCharTimer=0;
+        if(coverTimer>120||anyKeyPressed()||mouseClicked){
+            introState='intro';introPhase='typing';
+            introLineIdx=0;introCharIdx=0;introCharTimer=0;mouseClicked=false;
         }
-        if(anyKeyPressed()||mouseClicked){
-            introState='intro';
-            introPhase='typing';
-            introLineIdx=0;
-            introCharIdx=0;
-            introCharTimer=0;
-            mouseClicked=false;
-        }
-    }
-    else if(introState==='intro'){
+    }else if(introState==='intro'){
         if(introPhase==='typing'){
             introCharTimer++;
             const line=INTRO_TEXT[introLineIdx];
-            if(introCharTimer>=2){
-                introCharTimer=0;
-                introCharIdx++;
-                if(introCharIdx>line.text.length){
-                    introPhase='waiting';
-                    introLineTimer=0;
-                }
-            }
-            /* Skip: mostrar toda la línea */
-            if(anyKeyPressed()||mouseClicked){
-                introCharIdx=line.text.length;
-                introPhase='waiting';
-                introLineTimer=0;
-                mouseClicked=false;
-            }
-        }
-        else if(introPhase==='waiting'){
+            if(introCharTimer>=2){introCharTimer=0;introCharIdx++;if(introCharIdx>line.text.length){introPhase='waiting';introLineTimer=0;}}
+            if(anyKeyPressed()||mouseClicked){introCharIdx=line.text.length;introPhase='waiting';introLineTimer=0;mouseClicked=false;}
+        }else if(introPhase==='waiting'){
             introLineTimer++;
             const line=INTRO_TEXT[introLineIdx];
-            if(introLineTimer>=line.delay){
-                introLineIdx++;
-                if(introLineIdx>=INTRO_TEXT.length){
-                    introPhase='fadeout';
-                    introFadeAlpha=0;
-                }else{
-                    introPhase='typing';
-                    introCharIdx=0;
-                    introCharTimer=0;
-                }
-            }
-            if(anyKeyPressed()||mouseClicked){
-                introLineIdx++;
-                if(introLineIdx>=INTRO_TEXT.length){
-                    introPhase='fadeout';
-                    introFadeAlpha=0;
-                }else{
-                    introPhase='typing';
-                    introCharIdx=0;
-                    introCharTimer=0;
-                }
-                mouseClicked=false;
-            }
-        }
-        else if(introPhase==='fadeout'){
-            introFadeAlpha+=0.015;
-            if(introFadeAlpha>=1){
-                introState='done';
-                showMenu();
-            }
+            if(introLineTimer>=line.delay){introLineIdx++;if(introLineIdx>=INTRO_TEXT.length){introPhase='fadeout';introFadeAlpha=0;}else{introPhase='typing';introCharIdx=0;introCharTimer=0;}}
+            if(anyKeyPressed()||mouseClicked){introLineIdx++;if(introLineIdx>=INTRO_TEXT.length){introPhase='fadeout';introFadeAlpha=0;}else{introPhase='typing';introCharIdx=0;introCharTimer=0;}mouseClicked=false;}
+        }else if(introPhase==='fadeout'){
+            introFadeAlpha+=0.015;if(introFadeAlpha>=1){introState='done';showMenu();}
         }
     }
 }
 
 let mouseClicked=false;
-addEventListener('mousedown',()=>{mouseClicked=true;});
-addEventListener('touchstart',()=>{mouseClicked=true;},{passive:true});
 
-function anyKeyPressed(){
-    for(const k in jp)return true;
-    return false;
-}
+function anyKeyPressed(){for(const k in jp)return true;return false;}
 
 function drawIntro(){
-    if(introState==='cover'){
-        drawCoverScreen();
-    }
-    else if(introState==='intro'){
-        drawIntroText();
-    }
+    if(introState==='cover')drawCoverScreen();
+    else if(introState==='intro')drawIntroText();
 }
 
 function drawCoverScreen(){
     const t=performance.now();
-    /* Fondo oscuro */
-    X.fillStyle='#020005';
-    X.fillRect(0,0,VW,VH);
-
-    /* Niebla roja sutil */
+    X.fillStyle='#020005';X.fillRect(0,0,VW,VH);
     X.globalAlpha=.04+.02*Math.sin(t*.0006);
     const rg=X.createRadialGradient(VW/2,VH/2,50,VW/2,VH/2,VW*.6);
-    rg.addColorStop(0,'rgba(127,29,29,0.4)');
-    rg.addColorStop(1,'rgba(0,0,0,0)');
-    X.fillStyle=rg;
-    X.fillRect(0,0,VW,VH);
-    X.globalAlpha=1;
-
+    rg.addColorStop(0,'rgba(127,29,29,0.4)');rg.addColorStop(1,'rgba(0,0,0,0)');
+    X.fillStyle=rg;X.fillRect(0,0,VW,VH);X.globalAlpha=1;
     if(coverImg){
-        /* Dibujar portada centrada */
-        const imgAspect=coverImg.width/coverImg.height;
-        let dw,dh;
+        const imgAspect=coverImg.width/coverImg.height;let dw,dh;
         const maxW=VW*.78,maxH=VH*.82;
-        if(imgAspect>maxW/maxH){dw=maxW;dh=maxW/imgAspect;}
-        else{dh=maxH;dw=maxH*imgAspect;}
+        if(imgAspect>maxW/maxH){dw=maxW;dh=maxW/imgAspect;}else{dh=maxH;dw=maxH*imgAspect;}
         const dx=(VW-dw)/2,dy=(VH-dh)/2-10;
-
-        /* Sombra de la imagen */
-        X.fillStyle='rgba(0,0,0,.6)';
-        X.fillRect(dx+6,dy+6,dw,dh);
-
-        /* Borde decorativo */
-        X.strokeStyle='#7f1d1d';
-        X.lineWidth=3;
-        X.strokeRect(dx-4,dy-4,dw+8,dh+8);
-        X.strokeStyle='#450a0a';
-        X.lineWidth=1;
-        X.strokeRect(dx-7,dy-7,dw+14,dh+14);
-
-        /* Esquinas decorativas */
-        const cs=12;
-        X.fillStyle='#dc2626';
-        [[dx-7,dy-7],[dx+dw+7-cs,dy-7],[dx-7,dy+dh+7-cs],[dx+dw+7-cs,dy+dh+7-cs]].forEach(([cx,cy])=>{
-            X.fillRect(cx,cy,cs,cs);
-        });
-
-        /* Imagen con scanlines sutiles */
+        X.fillStyle='rgba(0,0,0,.6)';X.fillRect(dx+6,dy+6,dw,dh);
+        X.strokeStyle='#7f1d1d';X.lineWidth=3;X.strokeRect(dx-4,dy-4,dw+8,dh+8);
+        X.strokeStyle='#450a0a';X.lineWidth=1;X.strokeRect(dx-7,dy-7,dw+14,dh+14);
+        const cs=12;X.fillStyle='#dc2626';
+        [[dx-7,dy-7],[dx+dw+7-cs,dy-7],[dx-7,dy+dh+7-cs],[dx+dw+7-cs,dy+dh+7-cs]].forEach(([cx,cy])=>{X.fillRect(cx,cy,cs,cs);});
         X.drawImage(coverImg,dx,dy,dw,dh);
-        X.globalAlpha=.06;
-        for(let sy=dy;sy<dy+dh;sy+=2){
-            X.fillStyle='#000';
-            X.fillRect(dx,sy,dw,1);
-        }
-        X.globalAlpha=1;
+        X.globalAlpha=.06;for(let sy=dy;sy<dy+dh;sy+=2){X.fillStyle='#000';X.fillRect(dx,sy,dw,1);}X.globalAlpha=1;
     }else{
-        /* Fallback si no carga la imagen */
         X.fillStyle='#dc2626';X.font="28px 'Press Start 2P',monospace";X.textAlign='center';
-        X.shadowColor='#dc2626';X.shadowBlur=20;
-        X.fillText('GARFIAS',VW/2,VH/2-40);
-        X.shadowColor='#22c55e';X.shadowBlur=20;
-        X.fillStyle='#22c55e';
-        X.fillText('VS',VW/2,VH/2);
-        X.shadowColor='#fbbf24';X.shadowBlur=20;
-        X.fillStyle='#fbbf24';
-        X.fillText('ZOMBIES',VW/2,VH/2+40);
-        X.shadowBlur=0;
+        X.shadowColor='#dc2626';X.shadowBlur=20;X.fillText('GARFIAS',VW/2,VH/2-40);
+        X.shadowColor='#22c55e';X.shadowBlur=20;X.fillStyle='#22c55e';X.fillText('VS',VW/2,VH/2);
+        X.shadowColor='#fbbf24';X.shadowBlur=20;X.fillStyle='#fbbf24';X.fillText('ZOMBIES',VW/2,VH/2+40);X.shadowBlur=0;
     }
-
-    /* Créditos inferiores */
     X.fillStyle='#57534e';X.font="6px 'Press Start 2P',monospace";X.textAlign='center';
     X.fillText('JOSE GUERRERO - 2026',VW/2,VH-20);
-
-    /* Texto "PRESIONA CUALQUIER TECLA" parpadeante */
     if(coverTimer>40){
         X.globalAlpha=.3+.7*Math.abs(Math.sin(t*.003));
-        X.fillStyle='#fca5a5';X.font="8px 'Press Start 2P',monospace";X.textAlign='center';
-        X.fillText('PRESIONA CUALQUIER TECLA',VW/2,VH-50);
-        X.globalAlpha=1;
+        X.fillStyle='#fca5a5';X.font="7px 'Press Start 2P',monospace";X.textAlign='center';
+        X.fillText(isTouchDevice?'TOCA PARA CONTINUAR':'PRESIONA CUALQUIER TECLA',VW/2,VH-50);X.globalAlpha=1;
     }
-
-    /* Partículas de polvo flotantes */
-    X.globalAlpha=.15;
-    for(let i=0;i<12;i++){
+    X.globalAlpha=.15;for(let i=0;i<12;i++){
         const px=(VW*.1+i*VW*.075+Math.sin(t*.0003+i*1.7)*30);
         const py=(VH*.1+i*VH*.07+Math.cos(t*.0004+i*2.3)*20);
         const sz=1+Math.sin(t*.002+i)*.8;
         X.fillStyle=i%3===0?'#dc2626':i%3===1?'#22c55e':'#78716c';
         X.fillRect(px,py,Math.max(.5,sz),Math.max(.5,sz));
-    }
-    X.globalAlpha=1;
-
-    /* Viñeta */
+    }X.globalAlpha=1;
     const vg=X.createRadialGradient(VW/2,VH/2,VW*.25,VW/2,VH/2,VW*.65);
-    vg.addColorStop(0,'rgba(0,0,0,0)');
-    vg.addColorStop(1,'rgba(0,0,0,0.7)');
+    vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,0.7)');
     X.fillStyle=vg;X.fillRect(0,0,VW,VH);
 }
 
 function drawIntroText(){
     const t=performance.now();
-
-    /* Fondo negro profundo */
-    X.fillStyle='#020005';
-    X.fillRect(0,0,VW,VH);
-
-    /* Niebla ambiental muy sutil */
+    X.fillStyle='#020005';X.fillRect(0,0,VW,VH);
     X.globalAlpha=.03+.01*Math.sin(t*.0004);
     const ng=X.createRadialGradient(VW/2,VH*.4,50,VW/2,VH*.4,VW*.5);
-    ng.addColorStop(0,'rgba(127,29,29,0.3)');
-    ng.addColorStop(1,'rgba(0,0,0,0)');
+    ng.addColorStop(0,'rgba(127,29,29,0.3)');ng.addColorStop(1,'rgba(0,0,0,0)');
     X.fillStyle=ng;X.fillRect(0,0,VW,VH);X.globalAlpha=1;
-
-    /* Zonas de texto visibles */
-    const startY=100;
-    const lineH=32;
-    const maxVisible=10;
+    const startY=80,lineH=28,maxVisible=12;
     const startLine=Math.max(0,introLineIdx-maxVisible+3);
-
     X.textAlign='center';
-
     for(let i=startLine;i<=Math.min(introLineIdx,INTRO_TEXT.length-1);i++){
-        const line=INTRO_TEXT[i];
-        if(line.text==='')continue;
-
-        const screenIdx=i-startLine;
-        const y=startY+screenIdx*lineH;
-
+        const line=INTRO_TEXT[i];if(line.text==='')continue;
+        const screenIdx=i-startLine,y=startY+screenIdx*lineH;
         if(y<30||y>VH-30)continue;
-
-        /* Cuántos caracteres mostrar */
         let charsToShow=0;
         if(i<introLineIdx)charsToShow=line.text.length;
         else if(i===introLineIdx)charsToShow=Math.min(introCharIdx,line.text.length);
         else continue;
-
         const displayText=line.text.substring(0,charsToShow);
-
-        /* Efecto de aparición */
         const fadeIn=i===introLineIdx&&introPhase==='typing'?Math.min(1,charsToShow/5):1;
-        X.globalAlpha=fadeIn;
-
-        /* Sombra de texto */
-        X.shadowColor=line.color;
-        X.shadowBlur=8;
-
-        /* Texto principal */
-        X.fillStyle=line.color;
-        X.font="10px 'Press Start 2P',monospace";
-        X.fillText(displayText,VW/2,y);
-
-        /* Sombra oscura debajo */
-        X.shadowBlur=0;
-        X.globalAlpha=fadeIn*.3;
-        X.fillStyle='#000';
-        X.fillText(displayText,VW/2+2,y+2);
-        X.globalAlpha=1;
+        X.globalAlpha=fadeIn;X.shadowColor=line.color;X.shadowBlur=8;
+        X.fillStyle=line.color;X.font="9px 'Press Start 2P',monospace";X.fillText(displayText,VW/2,y);
+        X.shadowBlur=0;X.globalAlpha=fadeIn*.3;X.fillStyle='#000';X.fillText(displayText,VW/2+2,y+2);X.globalAlpha=1;
     }
-
     X.shadowBlur=0;
-
-    /* Cursor parpadeante en la línea actual */
     if(introPhase==='typing'&&introLineIdx<INTRO_TEXT.length){
         const line=INTRO_TEXT[introLineIdx];
         if(line.text.length>0){
-            const screenIdx=introLineIdx-startLine;
-            const y=startY+screenIdx*lineH;
+            const screenIdx=introLineIdx-startLine,y=startY+screenIdx*lineH;
             if(y>=30&&y<=VH-30){
-                const displayText=line.text.substring(0,Math.min(introCharIdx,line.text.length));
-                const tw=X.measureText(displayText).width;
+                const dt=line.text.substring(0,Math.min(introCharIdx,line.text.length));
+                const tw=X.measureText(dt).width;
                 X.globalAlpha=.5+.5*Math.abs(Math.sin(t*.006));
-                X.fillStyle=INTRO_TEXT[introLineIdx].color;
-                X.fillRect(VW/2+tw/2+4,y-8,2,10);
-                X.globalAlpha=1;
+                X.fillStyle=INTRO_TEXT[introLineIdx].color;X.fillRect(VW/2+tw/2+4,y-8,2,10);X.globalAlpha=1;
             }
         }
     }
-
-    /* Indicador "SKIP" sutil */
-    X.globalAlpha=.2+.15*Math.sin(t*.002);
-    X.fillStyle='#57534e';X.font="6px 'Press Start 2P',monospace";X.textAlign='right';
-    X.fillText('CLICK PARA CONTINUAR',VW-20,VH-16);
-    X.globalAlpha=1;
-
-    /* Líneas decorativas superior e inferior */
-    X.globalAlpha=.15;
-    X.fillStyle='#7f1d1d';
-    X.fillRect(60,60,VW-120,1);
-    X.fillRect(60,VH-40,VW-120,1);
-    X.globalAlpha=1;
-
-    /* Fade out */
-    if(introPhase==='fadeout'){
-        X.globalAlpha=Math.min(1,introFadeAlpha);
-        X.fillStyle='#000';
-        X.fillRect(0,0,VW,VH);
-        X.globalAlpha=1;
-    }
-
-    /* Viñeta */
+    X.globalAlpha=.2+.15*Math.sin(t*.002);X.fillStyle='#57534e';X.font="6px 'Press Start 2P',monospace";X.textAlign='right';
+    X.fillText(isTouchDevice?'TOCA PARA CONTINUAR':'CLICK PARA CONTINUAR',VW-20,VH-16);X.globalAlpha=1;
+    X.globalAlpha=.15;X.fillStyle='#7f1d1d';X.fillRect(60,50,VW-120,1);X.fillRect(60,VH-40,VW-120,1);X.globalAlpha=1;
+    if(introPhase==='fadeout'){X.globalAlpha=Math.min(1,introFadeAlpha);X.fillStyle='#000';X.fillRect(0,0,VW,VH);X.globalAlpha=1;}
     const vg=X.createRadialGradient(VW/2,VH/2,VW*.2,VW/2,VH/2,VW*.6);
-    vg.addColorStop(0,'rgba(0,0,0,0)');
-    vg.addColorStop(1,'rgba(0,0,0,0.5)');
+    vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,0.5)');
     X.fillStyle=vg;X.fillRect(0,0,VW,VH);
 }
 
@@ -457,8 +330,8 @@ let puItems=[],activePU={speed:0,rafaga:0,pierce:0,shield:false};
    AUDIO
 ============================================= */
 let actx=null;
-function initAudio(){if(!actx)actx=new(AudioContext||webkitAudioContext)();}
-function sfx(t){if(!actx)return;try{const o=actx.createOscillator(),g=actx.createGain();o.connect(g);g.connect(actx.destination);const n=actx.currentTime;const P={shoot:['sawtooth',880,220,.06,.1],hit:['square',140,35,.12,.14],pick:['sine',520,1040,.1,.07],dmg:['sawtooth',80,20,.28,.2],jump:['sine',280,520,.1,.06],combo:['sine',700,1400,.05,.04],wave:['sine',220,440,.3,.08],zjump:['sine',100,200,.15,.06],heavyhit:['square',90,25,.18,.16],pupick:['sine',440,880,.18,.12],pudrop:['triangle',600,300,.12,.08],pushield:['triangle',200,500,.2,.1],intro:['sine',330,165,.4,.06],textbeep:['square',660,440,.03,.03]};const p=P[t];if(!p)return;o.type=p[0];o.frequency.setValueAtTime(p[1],n);o.frequency.exponentialRampToValueAtTime(Math.max(1,p[2]),n+p[3]);g.gain.setValueAtTime(p[4],n);g.gain.exponentialRampToValueAtTime(.001,n+p[3]);o.start(n);o.stop(n+p[3]);}catch(e){}}
+function initAudio(){if(!actx)try{actx=new(AudioContext||webkitAudioContext)();}catch(e){}}
+function sfx(t){if(!actx)return;try{const o=actx.createOscillator(),g=actx.createGain();o.connect(g);g.connect(actx.destination);const n=actx.currentTime;const P={shoot:['sawtooth',880,220,.06,.1],hit:['square',140,35,.12,.14],pick:['sine',520,1040,.1,.07],dmg:['sawtooth',80,20,.28,.2],jump:['sine',280,520,.1,.06],combo:['sine',700,1400,.05,.04],wave:['sine',220,440,.3,.08],zjump:['sine',100,200,.15,.06],heavyhit:['square',90,25,.18,.16],pupick:['sine',440,880,.18,.12],pudrop:['triangle',600,300,.12,.08],pushield:['triangle',200,500,.2,.1]};const p=P[t];if(!p)return;o.type=p[0];o.frequency.setValueAtTime(p[1],n);o.frequency.exponentialRampToValueAtTime(Math.max(1,p[2]),n+p[3]);g.gain.setValueAtTime(p[4],n);g.gain.exponentialRampToValueAtTime(.001,n+p[3]);o.start(n);o.stop(n+p[3]);}catch(e){}}
 
 /* =============================================
    SPRITES
@@ -470,7 +343,7 @@ const URLS={
     jump:'https://z-cdn-media.chatglm.cn/files/c1748bd9-9ab2-4fa1-a550-f9d5a8e6a5ab.png?auth_key=1876361755-8a6b21d4e6e24c56a7b599e2a102c9fc-0-c9cc7249a9a719ac2136335b0bced620',
     run:'https://z-cdn-media.chatglm.cn/files/488c25d3-a0bc-41e1-a807-0f65eba3af5b.png?auth_key=1876361755-ed58e360e7c14635b8b279a5d89232b1-0-2be78a149472d5ae1742de6358346e5b',
     life:'https://z-cdn-media.chatglm.cn/files/95bba1f8-c7cf-4e88-9a55-ae285bb7fea5.png?auth_key=1876361755-dea3765443f94c5da148eecc0c92cbff-0-9d15cd791f27dc9041c5b154395b7358',
-    ammo:'https://z-cdn-media.chatglm.cn/files/14074791-4602-4d70-82f0-b33f03c5d31e.png?auth_key=1876361755-b8d49deda8e740719ba50999f4311822-0-7d663eefe7171e9ed34a9615480ce8ea',
+    ammo:'https://z-cdn-media.chatglm.cn/files/14074791-4602-4d70-82f0-b33f03c5d31e.png?auth_key=1876361755-b8d49deda8e740719ba50999f4311822-0-7d663eefe7179e9ed34a9615480ce8ea',
     zombie:'https://z-cdn-media.chatglm.cn/files/4a2b8652-f654-45ed-b9d6-88985aec7845.png?auth_key=1876361755-6ccc8a8c2de1414ba4767cace8b8b7ac-0-98d788f206d354fc5eb8df430ea12944'
 };
 const NFC={beer:4,attack:4,idle:4,jump:4,run:5,life:1,ammo:4,zombie:7};
@@ -544,12 +417,82 @@ function dFr(frames,fi,dx,dy,dw,dh,flip){
 }
 
 /* =============================================
-   ENTRADA
+   ENTRADA (TECLADO + TÁCTIL)
 ============================================= */
 const keys={},jp={};
 addEventListener('keydown',e=>{if(!keys[e.code])jp[e.code]=true;keys[e.code]=true;if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();});
 addEventListener('keyup',e=>{keys[e.code]=false;});
 function clearJp(){for(const k in jp)delete jp[k];}
+
+/* === Mapeo de botones táctiles a teclas === */
+const touchMap={
+    'btn-l':'KeyA',
+    'btn-r':'KeyD',
+    'btn-j':'Space',
+    'btn-s':'KeyJ'
+};
+const touchActive={};
+
+function setupTouchButton(id){
+    const el=document.getElementById(id);
+    if(!el)return;
+    const code=touchMap[id];
+
+    el.addEventListener('touchstart',e=>{
+        e.preventDefault();e.stopPropagation();
+        if(!keys[code])jp[code]=true;
+        keys[code]=true;
+        touchActive[id]=true;
+        el.classList.add('pressed');
+    },{passive:false});
+
+    el.addEventListener('touchend',e=>{
+        e.preventDefault();e.stopPropagation();
+        keys[code]=false;
+        touchActive[id]=false;
+        el.classList.remove('pressed');
+    },{passive:false});
+
+    el.addEventListener('touchcancel',e=>{
+        keys[code]=false;
+        touchActive[id]=false;
+        el.classList.remove('pressed');
+    },{passive:false});
+
+    /* Mouse fallback para testing en desktop */
+    el.addEventListener('mousedown',e=>{
+        e.preventDefault();
+        if(!keys[code])jp[code]=true;
+        keys[code]=true;
+        touchActive[id]=true;
+        el.classList.add('pressed');
+    });
+    el.addEventListener('mouseup',e=>{
+        keys[code]=false;
+        touchActive[id]=false;
+        el.classList.remove('pressed');
+    });
+    el.addEventListener('mouseleave',e=>{
+        keys[code]=false;
+        touchActive[id]=false;
+        el.classList.remove('pressed');
+    });
+}
+
+/* Inicializar botones táctiles */
+Object.keys(touchMap).forEach(setupTouchButton);
+
+/* Click/touch general para menús e intro */
+addEventListener('mousedown',()=>{mouseClicked=true;});
+addEventListener('touchstart',()=>{
+    /* Solo activar mouseClicked si no se tocó un botón de control */
+    let onButton=false;
+    for(const id in touchActive){if(touchActive[id]){onButton=true;break;}}
+    if(!onButton)mouseClicked=true;
+},{passive:true});
+
+/* Prevenir scroll y zoom en toda la página */
+document.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
 
 /* =============================================
    PARTICULAS Y EFECTOS
@@ -662,15 +605,11 @@ function updateP(){
     }else P.vx*=.7;
     if((jp.KeyW||jp.ArrowUp||jp.Space)&&P.grnd&&P.st!=='attack'){P.vy=JPOW;P.grnd=false;sfx('jump');burst(P.x,GND,5,'#3d2e1e',1.5,2,12,.06);}
     if(jp.KeyJ&&P.ammo>0&&P.st!=='attack'){
-        P.st='attack';
-        P.atkT=activePU.rafaga>0?Math.floor(ATK_DUR*0.45):ATK_DUR;
-        P.ammo--;
-        sfx('shoot');
+        P.st='attack';P.atkT=activePU.rafaga>0?Math.floor(ATK_DUR*0.45):ATK_DUR;
+        P.ammo--;sfx('shoot');
         const pc=activePU.pierce>0?1:0;
         bullets.push({x:P.x+P.face*30,y:P.y-PH*.5,vx:8*P.face,vy:0,life:80,pierce:pc});
-        if(activePU.rafaga>0){
-            bullets.push({x:P.x+P.face*30,y:P.y-PH*.5-10,vx:7.8*P.face,vy:-0.6,life:65,pierce:pc});
-        }
+        if(activePU.rafaga>0){bullets.push({x:P.x+P.face*30,y:P.y-PH*.5-10,vx:7.8*P.face,vy:-0.6,life:65,pierce:pc});}
     }
     if(!P.grnd)P.vy+=GRAV;P.x+=P.vx;P.y+=P.vy;
     P.prevGrnd=P.grnd;P.grnd=false;
@@ -764,15 +703,13 @@ function updateBullets(){
         const b=bullets[i];b.x+=b.vx;b.y+=b.vy;b.life--;
         if(b.life<=0||b.x<-20||b.x>VW+20){bullets.splice(i,1);continue;}
         const bh={x:b.x-4,y:b.y-4,w:8,h:8};
-        let hit=false;
         for(let j=zombies.length-1;j>=0;j--){
             const z=zombies[j];if(z.st!=='walk')continue;
             if(overlap(bh,zHB(z))){
-                hitZ(j,b);
-                burst(b.x,b.y,5,'#fbbf24',2.5,2,10,.05);
+                hitZ(j,b);burst(b.x,b.y,5,'#fbbf24',2.5,2,10,.05);
                 if(b.pierce>0){b.pierce--;burst(b.x,b.y,4,'#f97316',1.5,1.5,10,0);sfx('heavyhit');}
                 else{bullets.splice(i,1);}
-                hit=true;break;
+                break;
             }
         }
     }
@@ -792,20 +729,17 @@ function killZ(idx){
     if(combo>2)addFloat(z.x,z.y-ZH-18,'x'+combo,'#f59e0b',true);
     shake=Math.min(14,3+combo);
     if(z.maxHp>1){items.push({x:z.x,y:z.y-12,type:'ammo',vy:-3,grnd:false,bob:0});}
-    const dropChance=z.jumper?0.28:0.04;
-    if(Math.random()<dropChance)dropPU(z.x,z.y-ZH/2);
+    if(Math.random()<(z.jumper?0.28:0.04))dropPU(z.x,z.y-ZH/2);
 }
 function drawBullets(){
     for(const b of bullets){
         const isPierce=b.pierce>0;
         const col=isPierce?'#fb923c':'#fef08a';
-        const colGlow=isPierce?'#f97316':'#fef08a';
         X.globalAlpha=.25;X.fillStyle=col;X.fillRect(b.x-b.vx*3-2,b.y-1,6,3);
         X.globalAlpha=.15;X.fillRect(b.x-b.vx*5-1,b.y-.5,4,2);
         X.globalAlpha=1;X.fillStyle=isPierce?'#fed7aa':'#fef9c3';
-        X.shadowColor=colGlow;X.shadowBlur=isPierce?12:8;
-        X.fillRect(b.x-3,b.y-2,6,4);X.shadowBlur=0;
-        if(isPierce&&Math.random()<.5){addP(b.x-b.vx*2,b.y,0,0,1.5,'#f97316',6,0);}
+        X.shadowColor=col;X.shadowBlur=isPierce?12:8;X.fillRect(b.x-3,b.y-2,6,4);X.shadowBlur=0;
+        if(isPierce&&Math.random()<.5)addP(b.x-b.vx*2,b.y,0,0,1.5,'#f97316',6,0);
     }
 }
 
@@ -841,14 +775,12 @@ function drawItems(){
 ============================================= */
 function dropPU(x,y){
     const type=PU_TYPES[Math.floor(Math.random()*PU_TYPES.length)];
-    puItems.push({x:x,y:y,type:type,vy:-4.5,grnd:false,bob:Math.random()*6,life:720});
-    sfx('pudrop');
+    puItems.push({x:x,y:y,type:type,vy:-4.5,grnd:false,bob:Math.random()*6,life:720});sfx('pudrop');
 }
 function updatePUItems(){
     if(state==='playing'&&Math.random()<.0004){const rx=80+Math.random()*(VW-160);dropPU(rx,-30);}
     for(let i=puItems.length-1;i>=0;i--){
-        const pu=puItems[i];pu.life--;
-        if(pu.life<=0){puItems.splice(i,1);continue;}
+        const pu=puItems[i];pu.life--;if(pu.life<=0){puItems.splice(i,1);continue;}
         if(!pu.grnd){pu.vy+=.26;pu.y+=pu.vy;if(pu.vy>=0){for(const pl of platforms){if(pu.y+12>=pl.y&&pu.y<=pl.y+pl.h&&pu.x>pl.x&&pu.x<pl.x+pl.w){pu.y=pl.y-12;pu.vy=0;pu.grnd=true;break;}}}if(!pu.grnd&&pu.y>=GND-12){pu.y=GND-12;pu.grnd=true;}}
         pu.bob+=.06;
         const ph={x:pu.x-16,y:pu.y-16,w:32,h:32};
@@ -974,13 +906,9 @@ function showMenu(){
    BUCLE PRINCIPAL
 ============================================= */
 const FT=1000/60;let lastT=0,acc=0;
-let introBeepCounter=0;
 function update(){
     if(introState==='cover'||introState==='intro'){
-        updateIntro();
-        clearJp();
-        mouseClicked=false;
-        return;
+        updateIntro();clearJp();mouseClicked=false;return;
     }
     if(state==='playing'){
         gTime++;if(comboT>0){comboT--;if(comboT<=0)combo=0;}
@@ -989,22 +917,14 @@ function update(){
     }
     if(state==='waveTransition'){updateP();updateItems();updatePUItems();wavePause--;if(wavePause<=0){state='playing';startWave();}}
     if(state==='menu'){menuT++;const zFC=frameCount('zombie');for(const mz of menuZ){mz.x+=mz.speed*mz.face;mz.face=mz.x<VW/2?1:-1;if(mz.x>VW+50)mz.x=-50;if(mz.x<-50)mz.x=VW+50;mz.at++;if(mz.at>=12){mz.at=0;mz.af=(mz.af+1)%zFC;}}}
-    updateFX();clearJp();
-    mouseClicked=false;
+    updateFX();clearJp();mouseClicked=false;
 }
 function draw(){
     X.clearRect(0,0,C.width,C.height);X.fillStyle='#000';X.fillRect(0,0,C.width,C.height);
     X.save();let sx=0,sy=0;if(shake>0){sx=(Math.random()-.5)*shake*2;sy=(Math.random()-.5)*shake*2;}
     X.setTransform(sc,0,0,sc,ox+sx*sc,oy+sy*sc);X.imageSmoothingEnabled=false;
     const t=performance.now();
-
-    /* Pantallas de intro */
-    if(introState==='cover'||introState==='intro'){
-        drawIntro();
-        X.restore();
-        return;
-    }
-
+    if(introState==='cover'||introState==='intro'){drawIntro();X.restore();return;}
     drawBG(t);drawPlatforms();
     if(state==='menu'){for(const mz of menuZ){X.globalAlpha=.15;dFr(SP.zombie,mz.af,mz.x-ZW/2,mz.y-ZH,ZW,ZH,mz.face===1);X.globalAlpha=1;}X.globalAlpha=.35;dFr(SP.idle,Math.floor(t/300)%4,VW/2-PW/2,GND-PH,PW,PH,false);X.globalAlpha=1;}
     if(state==='playing'||state==='gameover'||state==='victory'||state==='waveTransition'){drawItems();drawPUItems();drawZ();drawBullets();drawPUEffect();drawP();drawFX();drawHUD();}
@@ -1022,9 +942,17 @@ document.getElementById('vb').addEventListener('click',startGame);
 document.getElementById('mb').addEventListener('click',()=>{initIntro();showMenu();});
 document.getElementById('vmb').addEventListener('click',()=>{initIntro();showMenu();});
 
+/* Desbloquear AudioContext en Android (requiere interacción del usuario) */
+function unlockAudio(){
+    if(actx&&actx.state==='suspended')actx.resume();
+    document.removeEventListener('touchstart',unlockAudio);
+    document.removeEventListener('click',unlockAudio);
+}
+document.addEventListener('touchstart',unlockAudio,{passive:true});
+document.addEventListener('click',unlockAudio);
+
 (async function init(){
     genBG();
-    /* Cargar portada y sprites en paralelo */
     await Promise.all([loadCoverImg(),loadSprites()]);
     document.getElementById('ld').style.display='none';
     initIntro();
